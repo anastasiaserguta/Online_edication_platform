@@ -7,7 +7,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap, иконки и шрифт -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link
@@ -38,14 +37,13 @@
                         <a class="nav-item nav-link " href="{% url 'courses-home' %}">Главная</a>
                         <a class="nav-item nav-link" href="{% url 'courses-about' %}">Об образовательной платформе</a>
                     </div>
-                    <!-- Правая часть навигационной панели -->
+
                     <div class="navbar-nav">
                         {% if user.is_authenticated %}
                         <a class="nav-item nav-link" href="{% url 'courses-create' %}">Создать курс</a>
                         <a class="nav-item nav-link" href="{% url 'profile' %}">Профиль</a>
                         <form method="post" action="{% url 'logout' %}">
                             {% csrf_token %}
-                            <!-- <button type="submit">Выход</button> -->
                             <button type="submit" class="btn btn-success" style="background-color: rgba(255, 255, 255, 0); border: none;" >Выход</button>
                         </form>
                         {% else %}
@@ -84,13 +82,10 @@
         </div>
 
     </main>
-    <!-- Футер закреплен внизу, независимо от количества постов на странице -->
     <footer class="text-center bg-dark">
         <p><a href="{% url 'courses-home' %}">© Online platform</a></p>
     </footer>
 
-    <!-- Дополнительные скрипты JavaScript -->
-    <!-- Сначала jQuery, затем Popper.js, последним Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>

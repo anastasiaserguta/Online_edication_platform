@@ -1,0 +1,12 @@
+{% extends "courses/course_detail.html" %}
+{% block content %}
+<h1 class="mb-3"> Созданные модули ({{ page_obj.paginator.count }})</h1>
+{% for mod in modules %}
+<article class="media content-section">
+    <div class="article-metadata">
+        <h2><a class="article-title" href="{% url 'course_created_modules' mod.id %}">{{ mod.module_title }}</a></h2>
+        <p class="article-content">{{ mod.modules }}</p>
+    </div>
+</article>
+{% endfor %}
+{% endblock content %}

@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login
 from .forms import LoginForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Course, Module, Task
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
 
 
 # courses = [
@@ -52,6 +52,7 @@ def about(request):
 #         form = LoginForm()
 #     return render(request, 'account/login.html', {'form': form})
 
+code_course = Course.code_course
 
 class CourseListView(ListView):
         model = Course
@@ -60,14 +61,28 @@ class CourseListView(ListView):
         ordering = ['-course_created']
         paginate_by = 5
 
+class ModuleListView(CourseListView):
+        model = Module
+        template_name = 'courses/course_created_modules.html'
+        context_object_name = 'modules'
 
-class CorseDetailView(DetailView):
+        def get_queryset(self):
+                # modules = Module.objects.filter(in_course=code_course)
+                modules = Module.objects.filter(in_course='87505675471416826715343')
+                return modules
+
+class TaskListView(ModuleListView):
+        model = Task
+        template_name = 'courses/course_created_modules.html'
+
+class CourseDetailView(DetailView):
         model = Course
 
 
-class CourseCreateView(LoginRequiredMixin, CreateView):
+class CourseCreateView(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
         model = Course
         fields = ['course_title', 'course_description',]
+        permission_required = 'courses/is_teacher'
 
         def form_valid(self, form):
                 form.instance.teacher = self.request.user
