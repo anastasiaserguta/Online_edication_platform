@@ -1,6 +1,8 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
 from .models import Course, Module, Task
 from django.contrib.auth import authenticate, login
 # from django.contrib.auth.decorators import login_required
@@ -34,25 +36,6 @@ def home(request):
 def about(request):
         return render(request, 'courses/about.html', {'title': 'About online platform.'})
 
-# def user_login(request):
-#     if request.method == 'POST':
-#         form = LoginForm(request.POST)
-#         if form.is_valid():
-#             cd = form.cleaned_data
-#             user = authenticate(username=cd['username'], password=cd['password'])
-#             if user is not None:
-#                 if user.is_active:
-#                     login(request, user)
-#                     return HttpResponse('Authenticated successfully')
-#                 else:
-#                     return HttpResponse('Disabled account')
-#             else:
-#                 return HttpResponse('Invalid login')
-#     else:
-#         form = LoginForm()
-#     return render(request, 'account/login.html', {'form': form})
-
-code_course = Course.code_course
 
 class CourseListView(ListView):
         model = Course
@@ -61,33 +44,54 @@ class CourseListView(ListView):
         ordering = ['-course_created']
         paginate_by = 5
 
-class ModuleListView(CourseListView):
-        model = Module
-        template_name = 'courses/course_created_modules.html'
-        context_object_name = 'modules'
+def course_detail(request, pk):
+        context = {
+        'courses': Course.objects.filter(id=pk),
+        'modules': Module.objects.filter(module_course_id=pk),
+	}
+        return render(request, 'courses/course_detail.html', context)
 
-        def get_queryset(self):
-                # modules = Module.objects.filter(in_course=code_course)
-                modules = Module.objects.filter(in_course='87505675471416826715343')
-                return modules
-
-class TaskListView(ModuleListView):
-        model = Task
-        template_name = 'courses/course_created_modules.html'
-
-class CourseDetailView(DetailView):
-        model = Course
+def module_detail(request, pk):
+        mod = Module.objects.filter(id=pk)
+        for modul in mod:
+                _id = modul.module_course_id
+        context = {
+                'courses': Course.objects.filter(id=_id),
+                'modules': mod,
+                'tasks': Task.objects.filter(task_module_id=pk)
+        }
+        return render(request, 'courses/module_detail.html', context)
 
 
 class CourseCreateView(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
         model = Course
         fields = ['course_title', 'course_description',]
-        permission_required = 'courses/is_teacher'
+        permission_required = True
 
         def form_valid(self, form):
                 form.instance.teacher = self.request.user
                 return super().form_valid(form)
+        
+class ModuleCreateView(LoginRequiredMixin, CreateView):
+        model = Module
+        fields = ['module_course', 'module_title', 'module_description',]
 
+        def form_valid(self, form):
+                form.instance.teacher = self.request.user
+                return super().form_valid(form)
+        
+        def test_func(self):
+                course = self.get_object()
+                if self.request.user == course.teacher:
+                        return True
+                return False
+        
+class ModuleDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+        model = Module
+        success_url = '/'
+
+        def test_func(self):
+                        return True
 
 class CourseUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         model = Course

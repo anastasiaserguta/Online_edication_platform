@@ -5,7 +5,8 @@ from PIL import Image
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
-    is_teacher = models.BooleanField(default='False')
+    is_teacher = models.BooleanField(default=False)
+    is_student = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -30,11 +31,4 @@ class Profile(models.Model):
         #     img.thumbnail(output_size)
         #     img.save(self.image.path)
 
-
-# class TeachersGroup(Group):
-#         teachers_description = models.TextField(blank=True)
-
-
-# class StudentsGroup(Group):
-#         students_description = models.TextField(blank=True)
 

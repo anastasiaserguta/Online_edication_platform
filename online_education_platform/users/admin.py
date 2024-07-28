@@ -7,12 +7,3 @@ from django.contrib.auth.models import Group
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ['user', 'image',]
 
-admin.site.unregister(Group)
-
-# @admin.register(TeachersGroup)
-# class TeachersGroupAdmin(GroupAdmin):
-#     fieldsets = ((None, {'fields': ('group_name', 'permissions')}), (('Description'), {'fields': ('teachers_description',)}),)
-
-# @admin.register(StudentsGroup)
-# class StudentsCroupAdmin(GroupAdmin):
-#     fieldsets = ((None, {'fields': ('group_name', 'permissions')}), (('Description'), {'fields': ('students_description',)}),)
