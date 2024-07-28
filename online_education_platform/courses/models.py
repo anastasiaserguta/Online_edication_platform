@@ -43,7 +43,7 @@ class Task(models.Model):
     task_module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name='task_module', default=None)
     task_title = models.CharField(max_length=128)
     task_description = models.TextField(blank=True)
-    task_file = models.FileField(default=None)
+    task_file = models.FileField(default=None, null=True)
     created_at = models.DateTimeField(auto_now_add=datetime)
     update_at = models.DateTimeField(auto_now=datetime)
     is_completed = models.BooleanField(default=False)

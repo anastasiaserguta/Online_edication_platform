@@ -5,7 +5,7 @@
     <form method="POST">
         {% csrf_token %}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Новый модуль</legend>
+            <legend class="border-bottom mb-4">Создание/редактирование модуля</legend>
             <!-- <select name="course_id" id="course_module_id" disabled>{{object.id}}</select> -->
             {{ form|crispy }}
         </fieldset>

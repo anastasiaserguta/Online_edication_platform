@@ -3,7 +3,7 @@ from django.db.models.query import QuerySet
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
 from django.http import HttpRequest, HttpResponse
-from .models import Course, Module, Task
+from .models import Course, Module, Task, Solution, Student
 from django.contrib.auth import authenticate, login
 # from django.contrib.auth.decorators import login_required
 from .forms import LoginForm
@@ -62,11 +62,30 @@ def module_detail(request, pk):
         }
         return render(request, 'courses/module_detail.html', context)
 
+def task_detail(request, pk):
+        solution = Solution.objects.filter(id=pk)
+        context = {
+                'tasks': Task.objects.filter(id=pk),
+                'solution': solution,
+        }
+        return render(request, 'courses/task_detail.html', context)
 
-class CourseCreateView(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
+
+class CourseCreateView(LoginRequiredMixin, CreateView):
         model = Course
         fields = ['course_title', 'course_description',]
-        permission_required = True
+        # permission_required = True
+
+
+        def form_valid(self, form):
+                form.instance.teacher = self.request.user
+                return super().form_valid(form)
+        
+class TaskCreateView(LoginRequiredMixin, CreateView):
+        model = Task
+
+        fields = ['task_title', 'task_description', 'task_file', 'is_completed',]
+        # permission_required = True
 
         def form_valid(self, form):
                 form.instance.teacher = self.request.user
@@ -91,7 +110,17 @@ class ModuleDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         success_url = '/'
 
         def test_func(self):
-                        return True
+                return True
+        
+class ModuleUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+        model = Module
+        fields = ['module_course', 'module_title', 'module_description',]
+
+        def form_valid(self, form):
+                return super().form_valid(form)
+
+        def test_func(self):
+                return True
 
 class CourseUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         model = Course
