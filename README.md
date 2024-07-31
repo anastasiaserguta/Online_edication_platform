@@ -1,7 +1,4 @@
 # Online_education_platform
-<<<<<<< HEAD
- This is my final project prepared as part of the python course (python 3.12.2).
-=======
 
 version: pre-alpha 0.1
 
@@ -27,6 +24,3 @@ Suggested possibilities:
 ***
 This is my last project prepared as part of a python course, so the secret key is not hidden.
 
-
-
->>>>>>> ced3057 (Pre-alpha v.0.1)
