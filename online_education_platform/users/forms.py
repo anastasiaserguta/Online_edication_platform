@@ -25,4 +25,3 @@ class ProfileUpdateForm(forms.ModelForm):
             model = Profile
             fields = ['image', 'is_teacher', 'is_student']
 
-

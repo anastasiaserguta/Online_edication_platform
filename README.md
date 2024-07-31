@@ -22,5 +22,5 @@ Suggested possibilities:
 4. Minor improvements and bug fixes.
 
 ***
-This is my last project prepared as part of a python course, so the secret key is not hidden.
+This is my final project prepared as part of the python course, so the secret key is not hidden.
 
