@@ -30,7 +30,7 @@ class SolutionAdmin(admin.ModelAdmin):
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
-    list_display = []
+    list_display = ['person',]
 
 
 

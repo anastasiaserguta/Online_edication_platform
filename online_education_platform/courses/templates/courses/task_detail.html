@@ -4,26 +4,44 @@
     {% for task in tasks %}
     <article class="media content-section">
         <div class="media-body">
+            <div style="width: 100%;">
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="#" style="width: 50%;">Редактировать задачу</a>
+                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'delete-task' task.id %}" style="width: 49%;">Удалить задачу</a>
+            </div>
+            <p> </p>
             <div class="article-metadata">
                 <h2 class="article-title">{{ task.task_title }}</h2>
                 <p class="article-content">{{ task.task_description }}</p>
                 <p class="article-content"> Создано: {{task.created_at}} </p>
                 <p class="article-content"> Обновлено: {{task.update_at}} </p>
+                {% if task.task_file %}
                 <a href="{{ task.task_file.url }}" download> Прикрепленные файлы </a>
+                {% endif %}
                 <div>
-                    {% if task.is_completed == False %}
-                    <h5 class="article-content" style="text-align: right;"> Не готово </h5>
-                    {% else %}
+                    {% if solution is not None %}
                     <h5 class="article-content" style="text-align: right;"> Выполнено </h5>
+                    <div >
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'solution-detail' solution.id %}" style="background-color: forestgreen; border-color: forestgreen; width: 100%;">Решение добавлено</a>
+                    </div>
+                    <p></p>
+                    {% if solution.notes == None %}
+                    <div>
+                        <p>Оценка: не оценено</p>
+                    </div>
+                    {% else %}
+                    <div>
+                        <p>Оценка: {{solution.notes}}</p>
+                    </div>
+                    {% endif %}
+                    {% else %}
+                    <h5 class="article-content" style="text-align: right;"> Не готово </h5>
+                    <div >
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" style="background-color: floralwhite; width: 100%; color: black;" href="{% url 'create-solution' task.id %}">Добавить решение</a>
+                    </div>
                     {% endif %}
                 </div>
             </div>
         </div>
-
-    </article>
-    <article class="media content-section">
-        {% for task in tasks %}
-        {% endfor %}
     </article>
     {% endfor %}
 </div>
