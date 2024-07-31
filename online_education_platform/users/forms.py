@@ -23,10 +23,5 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
 	class Meta:
             model = Profile
-<<<<<<< HEAD
-            fields = ['image']
-=======
             fields = ['image', 'is_teacher', 'is_student']
 
-
->>>>>>> ced3057 (Pre-alpha v.0.1)
