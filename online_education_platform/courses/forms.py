@@ -1,10 +1,4 @@
 from django import forms
-<<<<<<< HEAD
-
-class LoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
-=======
 from django.forms import ModelForm
 from .models import Task, Student
 
@@ -22,11 +16,3 @@ class TaskForm(ModelForm):
     class Meta:
         model = Task
         fields = ('task_module', 'task_title', 'task_description', 'task_file', 'is_completed',)
-
-
-
-
-
-
-
->>>>>>> ced3057 (Pre-alpha v.0.1)
