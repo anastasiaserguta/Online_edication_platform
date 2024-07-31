@@ -28,7 +28,7 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-blue fixed-top">
             <div class="container">
                 <a class="navbar-brand mr-4" href="{% url 'courses-home' %}"><i class='bx bxs-rocket bx-tada-hover'></i>
-                    Online education platform</a>
+                    Online education platform <span style="font-size: 50%;">pre-alpha v.0.1</span></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
                     aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -45,8 +45,12 @@
                         <a class="nav-item nav-link" href="{% url 'profile' %}">Профиль</a>
                         <form method="post" action="{% url 'logout' %}">
                             {% csrf_token %}
+<<<<<<< HEAD
                             <!-- <button type="submit">Выход</button> -->
                             <button type="submit" class="btn btn-success" style="background-color: rgba(255, 255, 255, 0); border: none;" >Выход</button>
+=======
+                            <button type="submit" class="btn btn-success" style="background-color: rgba(255, 255, 255, 0); color: #cbd5db; border: none;" >Выход</button>
+>>>>>>> ced3057 (Pre-alpha v.0.1)
                         </form>
                         {% else %}
                         <a class="nav-item nav-link" href="{% url 'login' %}">Вход</a>
@@ -69,18 +73,22 @@
                 {% endif %}
                 {% block content %}{% endblock %}
             </div>
+            {% if user.is_authenticated %}
             <div class="col-md-4">
                 <div class="content-section">
                     <h3>Разделы</h3>
-                    <p class='text-muted'>новости и события
                     <ul class="list-group">
-                        <li class="list-group-item list-group-item-light">Новые модули</li>
+                        <li class="list-group-item list-group-item-light"><a href="{% url 'user-courses' user.id %}" style="color: #818182;">Мои курсы</a></li>
                         <li class="list-group-item list-group-item-light">Объявления</li>
                         <li class="list-group-item list-group-item-light">Незавершенные задачи</li>
+                        {% if user.profile.is_student == True %}
+                        <li class="list-group-item list-group-item-light">Успеваемость</li>
+                        {% endif %}
                     </ul>
                     </p>
                 </div>
             </div>
+            {% endif %}
         </div>
 
     </main>
