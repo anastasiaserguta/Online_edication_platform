@@ -1,13 +1,4 @@
 from django.urls import path
-<<<<<<< HEAD
-from . import views
-from .views import CourseListView, CorseDetailView, CourseCreateView, CourseUpdateView, CourseDeleteView, UserPostListView
-
-urlpatterns = [
-    path('', CourseListView.as_view(), name='courses-home'),
-    path('user/<str:username>', UserPostListView.as_view(), name='user-created-courses'),
-    path('courses/<int:pk>/', CorseDetailView.as_view(), name='courses-detail'),
-=======
 from django.conf.urls import static
 from .views import (CourseListView, 
                     # CourseDetailView, 
@@ -40,16 +31,10 @@ urlpatterns = [
     path('user/<str:username>', UserCourseListView.as_view(), name='user-created-courses'),
     path('user_courses/<int:pk>/', user_courses, name='user-courses'),
     path('courses/<int:pk>/', course_detail, name='courses-detail'),
->>>>>>> ced3057 (Pre-alpha v.0.1)
     path('courses/new/', CourseCreateView.as_view(), name='courses-create'),
     path('courses/<int:pk>/update/', CourseUpdateView.as_view(), name='courses-update'),
     path('courses/<int:pk>/subscribe/', subscribe_course, name='subscribe-course'),
     path('courses/<int:pk>/delete/', CourseDeleteView.as_view(), name='courses-delete'),
-<<<<<<< HEAD
-    path('', views.home, name='courses-home'),
-    path('about/', views.about, name='courses-about'),
-]
-=======
     path('module/<int:pk>/', module_detail, name='module-detail'),
     path('module/<int:pk>/update/', ModuleUpdateView.as_view(), name='update-module'),
     path('module/<int:pk>/new/', ModuleCreateView.as_view(), name='create-module'),
@@ -63,5 +48,5 @@ urlpatterns = [
     path('', home, name='courses-home'),
     path('about/', about, name='courses-about'),
 ] 
->>>>>>> ced3057 (Pre-alpha v.0.1)
+
 
