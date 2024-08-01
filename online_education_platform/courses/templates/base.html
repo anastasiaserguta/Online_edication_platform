@@ -45,12 +45,7 @@
                         <a class="nav-item nav-link" href="{% url 'profile' %}">Профиль</a>
                         <form method="post" action="{% url 'logout' %}">
                             {% csrf_token %}
-<<<<<<< HEAD
-                            <!-- <button type="submit">Выход</button> -->
-                            <button type="submit" class="btn btn-success" style="background-color: rgba(255, 255, 255, 0); border: none;" >Выход</button>
-=======
                             <button type="submit" class="btn btn-success" style="background-color: rgba(255, 255, 255, 0); color: #cbd5db; border: none;" >Выход</button>
->>>>>>> ced3057 (Pre-alpha v.0.1)
                         </form>
                         {% else %}
                         <a class="nav-item nav-link" href="{% url 'login' %}">Вход</a>
