@@ -1,13 +1,10 @@
 from django.urls import path
 from django.conf.urls import static
-from .views import (CourseListView, 
-                    # CourseDetailView, 
+from .views import (CourseListView, # импорт таким образом, чтобы видеть, что осталось неиспользованным.
                     CourseCreateView, 
                     CourseUpdateView, 
                     CourseDeleteView, 
                     UserCourseListView, 
-                    # ModuleListView,
-                    # ModuleDetailView,
                     ModuleCreateView,
                     home,
                     about,
@@ -23,6 +20,7 @@ from .views import (CourseListView,
                     SolutionCreateView,
                     solution_detail,
                     SolutionNotesUpdateView,)
+
 
                     
 
@@ -48,5 +46,4 @@ urlpatterns = [
     path('', home, name='courses-home'),
     path('about/', about, name='courses-about'),
 ] 
-
 
