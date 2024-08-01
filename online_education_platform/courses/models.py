@@ -5,38 +5,34 @@ from django.urls import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 
-
 class Course(models.Model): 
     course_title = models.CharField(max_length=64, null=True, help_text='название курса')
     course_description = models.TextField(max_length=128, null=True, help_text='описание курса')
     teacher = models.ForeignKey(User, on_delete=models.CASCADE, related_name='course_creator')
     course_created = models.DateTimeField(auto_now_add=datetime)
-    # enter_code = models.UUIDField(primary_key=True, unique=True, default=uuid4)
 
     def __str__(self):
         return self.course_title
     
     def get_absolute_url(self):
         return reverse('courses-detail', kwargs={'pk': self.pk})
-
     
     
 
 class Module(models.Model):
-    module_course = models.ForeignKey(Course, on_delete=models.DO_NOTHING, related_name='course_modules', default=None)
-    module_title = models.CharField(max_length=200, null=True)
-    module_description = models.TextField(blank=True)
+    module_course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='module_course')
+    module_title = models.CharField(max_length=200, null=False)
+    module_description = models.TextField(blank=False, default='описание отсутствует')
 
     def __str__(self):
         return self.module_title
     
-
     def get_absolute_url(self):
         return reverse('module-detail', kwargs={'pk': self.pk})
-
+    
     
 class Task(models.Model):
-    task_module = models.ForeignKey(Module, on_delete=models.DO_NOTHING, related_name='module_task', default=None)
+    task_module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name='task_module', default=None)
     task_title = models.CharField(max_length=128)
     task_description = models.TextField(blank=True)
     task_file = models.FileField(default=None, blank=True)
@@ -81,7 +77,6 @@ class Student(models.Model):
 
     
         
-
     
 
 
