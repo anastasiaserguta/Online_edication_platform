@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<article class="media content-section">
+    <div class="media-body">
+        <div class="article-metadata">
+            {% for course in courses %}
+            <small class="text-muted">{{ course.course_created|date:"F d, Y" }}</small>
+            <h2 class="article-title">{{ course.course_title }}</h2>
+            <p class="article-content">{{ course.course_description }}</p>
+            {% if course.teacher == user %}
+            <div>
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'create-module' course.id %}" style="background-color: forestgreen; border-color: forestgreen;">Создать модуль</a>
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'courses-update' course.id %}">Редактировать курс</a>
+                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'courses-delete' course.id %}">Удалить курс</a>
+            </div>
+            {% else %}
+            {% if user.is_authenticated %}
+            <div>
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'subscribe-course' course.id %}" style="background-color: #6699cc; border-color: #6699cc; width: 100%;"><h5 style="color: white; justify-content: center;">Записаться на курс</h5></a>
+            </div>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+        </div>
+            {% for mod in modules %}
+            <h4 class="article-title"><a href="{% url 'module-detail' mod.id %}">{{ mod.module_title }}</a></h4>
+            <h6 class="article-title">{{ mod.module_description }}</h6>
+            {% endfor %}
+    </div>
+</article>
+{% endblock content %}
