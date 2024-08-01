@@ -18,9 +18,6 @@ class ModuleAdmin(admin.ModelAdmin):
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-<<<<<<< HEAD
-    list_display = ['task_title', 'created_at', 'is_completed',]
-=======
     list_display = ['task_title', 'task_description', 'created_at', 'is_completed',]
 
 @admin.register(Solution)
@@ -30,7 +27,7 @@ class SolutionAdmin(admin.ModelAdmin):
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
     list_display = ['person',]
->>>>>>> ced3057 (Pre-alpha v.0.1)
+
 
 
 

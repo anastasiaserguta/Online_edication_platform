@@ -8,14 +8,9 @@
             <small class="text-muted">{{ object.course_created|date:"F d, Y" }}</small>
             {% if object.teacher == user %}
             <div>
-<<<<<<< HEAD
-                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'courses-update' object.id %}">Редактировать</a>
-                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'courses-delete' object.id %}">Удалить</a>
-=======
                 <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'create-module' course.id %}" style="background-color: forestgreen; border-color: forestgreen;">Создать модуль</a>
                 <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'courses-update' course.id %}">Редактировать курс</a>
                 <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'courses-delete' course.id %}">Удалить курс</a>
->>>>>>> ced3057 (Pre-alpha v.0.1)
             </div>
             {% else %}
             {% if user.is_authenticated %}

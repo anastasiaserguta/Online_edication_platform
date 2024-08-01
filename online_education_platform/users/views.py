@@ -35,11 +35,7 @@ def profile(request):
 
         context = {
             'u_form': u_form,
-<<<<<<< HEAD
-            'p_form': p_form
-=======
             'p_form': p_form,            
->>>>>>> ced3057 (Pre-alpha v.0.1)
         }
 
         return render(request, 'users/profile.html', context)

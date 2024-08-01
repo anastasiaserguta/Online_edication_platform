@@ -1,31 +1,3 @@
-<<<<<<< HEAD
-from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.models import User
-from django.http import HttpResponse
-from .models import Course, Module, Task
-from django.contrib.auth import authenticate, login
-# from django.contrib.auth.decorators import login_required
-from .forms import LoginForm
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Course, Module, Task
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-
-
-# courses = [
-# 	{
-#         'teacher': 'Админ',
-#         'title': 'Курс русского языка (часть 1)',
-#         'description': 'Описание курса.',
-#         'date_posted': '24.07.2024'
-# 	},
-# 	{
-#         'teacher': 'Пользователь',
-#         'title': 'Курс русского языка (часть 2)',
-#         'description': 'Описание курса.',
-#         'date_posted': '25.07.2024'
-# 	}
-# ]
-=======
 from typing import Any
 from django.db import IntegrityError
 from django.shortcuts import render, get_object_or_404
@@ -36,7 +8,7 @@ from .models import Course, Module, Task
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
 from django.contrib import messages
 from uuid import uuid4
->>>>>>> ced3057 (Pre-alpha v.0.1)
+
 
 def home(request):
         context = {
@@ -47,25 +19,6 @@ def home(request):
 def about(request):
         return render(request, 'courses/about.html', {'title': 'About online platform.'})
 
-# def user_login(request):
-#     if request.method == 'POST':
-#         form = LoginForm(request.POST)
-#         if form.is_valid():
-#             cd = form.cleaned_data
-#             user = authenticate(username=cd['username'], password=cd['password'])
-#             if user is not None:
-#                 if user.is_active:
-#                     login(request, user)
-#                     return HttpResponse('Authenticated successfully')
-#                 else:
-#                     return HttpResponse('Disabled account')
-#             else:
-#                 return HttpResponse('Invalid login')
-#     else:
-#         form = LoginForm()
-#     return render(request, 'account/login.html', {'form': form})
-
-
 class CourseListView(ListView):
         model = Course
         template_name = 'courses/home.html'  
@@ -74,10 +27,6 @@ class CourseListView(ListView):
         paginate_by = 5
 
 
-<<<<<<< HEAD
-class CorseDetailView(DetailView):
-        model = Course
-=======
 def subscribe_course(request, pk):
         try:
                 stud = get_object_or_404(User, id=request.user.id)
@@ -132,7 +81,6 @@ def task_detail(request, pk):
                 'solution': solution,
         }
         return render(request, 'courses/task_detail.html', context)
->>>>>>> ced3057 (Pre-alpha v.0.1)
 
 
 class CourseCreateView(LoginRequiredMixin, CreateView):
@@ -142,9 +90,6 @@ class CourseCreateView(LoginRequiredMixin, CreateView):
         def form_valid(self, form):
                 form.instance.teacher = self.request.user
                 return super().form_valid(form)
-<<<<<<< HEAD
-
-=======
         
         
 class ModuleCreateView(LoginRequiredMixin, CreateView):
@@ -214,7 +159,6 @@ class ModuleUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
         def test_func(self):
                 return True
->>>>>>> ced3057 (Pre-alpha v.0.1)
 
 class CourseUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         model = Course
